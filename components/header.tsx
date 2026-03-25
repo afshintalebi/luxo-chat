@@ -1,4 +1,3 @@
-// components/header.tsx
 "use client";
 
 import { Moon, Sun, Globe, Plus } from "lucide-react";
@@ -7,7 +6,6 @@ import { useLanguage } from "./language-provider";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
-// We pass a callback to handle clearing the chat history
 interface HeaderProps {
   onNewChat: () => void;
 }
@@ -16,7 +14,6 @@ export function Header({ onNewChat }: HeaderProps) {
   const { theme, setTheme } = useTheme();
   const { language, toggleLanguage } = useLanguage();
   
-  // To prevent hydration mismatch for the theme toggle icon
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

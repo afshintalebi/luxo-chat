@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_Arabic } from "next/font/google";
-import "./globals.css";
+import { Noto_Sans_Arabic } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/components/language-provider";
+import "./globals.css";
 
-// English Font setup
-const inter = Inter({ 
-  subsets: ["latin"],
-  variable: "--font-inter", 
-});
-
-// Persian Font setup
 const notoSansArabic = Noto_Sans_Arabic({ 
   subsets: ["arabic"],
   display: 'swap',
@@ -29,10 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Suppress hydration warning is required for next-themes
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={notoSansArabic.variable}>
       <body
-        className={`${inter.variable} ${notoSansArabic.variable} antialiased bg-background text-foreground transition-colors duration-300`}
+        className={`antialiased bg-background text-foreground transition-colors duration-300`}
+        style={{ fontFamily: 'var(--font-noto-sans-arabic), Tahoma, Arial, sans-serif' }}
       >
         <ThemeProvider
           attribute="class"
