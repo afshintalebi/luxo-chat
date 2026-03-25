@@ -11,11 +11,22 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { ChatSettings } from "@/components/settings-modal";
+import { DefaultChatTransport } from "ai";
 
 export default function ChatPage() {
   const [error, setError] = useState("");
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+
+  // State to manage initial loading from local storage
+  const [isMounted, setIsMounted] = useState(false);
+
+  const [chatSettings, setChatSettings] = useState<ChatSettings>({
+    systemInstruction: "",
+    model: "gpt-4o-mini",
+    temperature: 0.7,
+  });
 
   const { language } = useLanguage();
 
@@ -25,14 +36,18 @@ export default function ChatPage() {
   // Local storage key for chat memory
   const STORAGE_KEY = "luxo-chat-memory";
 
-  // State to manage initial loading from local storage
-  const [isMounted, setIsMounted] = useState(false);
-
   const { messages, sendMessage, setMessages } = useChat({
     onError: (error) => {
       console.error("Chat Error:", error);
       setError(error.message);
     },
+    transport: new DefaultChatTransport({
+      body: {
+        model: chatSettings.model,
+        systemInstruction: chatSettings.systemInstruction,
+        temperature: chatSettings.temperature,
+      },
+    }),
   });
 
   // 1. Load chat history from localStorage on first mount
@@ -101,7 +116,10 @@ export default function ChatPage() {
   return (
     <div className="flex flex-col h-screen bg-background">
       {/* 1. Header Area */}
-      <Header onNewChat={handleNewChat} />
+      <Header
+        onNewChat={handleNewChat}
+        onSettingsChange={(newSettings) => setChatSettings(newSettings)}
+      />
 
       {/* 2. Chat Messages Area */}
       <div className="flex-1 overflow-y-auto w-full max-w-3xl mx-auto px-4 py-8 space-y-6">
