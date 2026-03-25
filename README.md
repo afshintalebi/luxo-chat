@@ -4,8 +4,6 @@ A premium, minimalist, and highly customizable personal AI assistant powered by 
 
 Luxo Chat is designed to give you a ChatGPT-like experience using your own API Key (BYOK), without paying for monthly subscriptions. It focuses on privacy, speed, and a sleek user interface.
 
-![Luxo Chat Showcase](https://via.placeholder.com/1200x600/09090b/fafafa?text=Luxo+Chat+-+Minimalist+AI+Assistant) *(You can replace this link with a real screenshot of your app later)*
-
 ## ✨ Features
 
 - **Bring Your Own Key (BYOK):** Securely use your own OpenAI API key. The key is stored safely on the server side (`.env.local`) and is **never** exposed to the browser.
